@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from vrepper.core import vrepper
 
-venv = vrepper(headless=True)
+venv = vrepper(dir_vrep='/home/nikhil/V-REP_PRO_EDU_V3_5_0_Linux/', headless=True)
 venv.start()
 current_dir = os.path.dirname(os.path.realpath(__file__))
 venv.load_scene(current_dir + '/scenes/poppy_ergo_jr.ttt')

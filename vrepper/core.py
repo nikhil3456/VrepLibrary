@@ -10,6 +10,7 @@ import types
 import numpy as np
 import socket
 from contextlib import closing
+import sys
 
 from vrepper.utils import check_ret, blocking, oneshot, instance, deprecated
 from vrepper.vrep_object import vrepobject
@@ -26,14 +27,18 @@ class vrepper(object):
 
         self.port_num = port_num
 
-        if dir_vrep == '':
+        if dir_vrep == '': # the dir_vrep is the path to the vrep directory (eg: /home/USERNAME/V-REP_PRO_EDU_V3_4_0_Linux)
             print('(vrepper) trying to find V-REP executable in your PATH')
             import distutils.spawn as dsp
-            path_vrep = dsp.find_executable('vrep.sh')  # fix for linux
+            path_vrep = dsp.find_executable('vrep.sh')  # for linux
             if path_vrep == None:
-                path_vrep = dsp.find_executable('vrep')
+                path_vrep = dsp.find_executable('vrep') # for windows
         else:
-            path_vrep = dir_vrep + 'vrep'
+            if sys.platform.startswith('linux'):
+                path_vrep = dir_vrep + 'vrep.sh' # for linux
+            else:
+                path_vrep = dir_vrep + 'vrep'
+
         print('(vrepper) path to your V-REP executable is:', path_vrep)
         if path_vrep is None:
             raise Exception("Sorry I couldn't find V-Rep binary. "
