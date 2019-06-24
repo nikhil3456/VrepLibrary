@@ -46,11 +46,7 @@ venv.start_simulation(is_sync=False)
 2. [cuboid_control.py](https://github.com/nikhil3456/VrepLibrary/blob/master/cuboid_control.py)
 3. [moveMotorAndSenser.py](https://github.com/nikhil3456/VrepLibrary/blob/master/moveMotorAndSenser.py)
 
-## Todos
-
- - Find a way to convert Scene files of RoboComp written in XML to .ttt scene file types supported in V-REP.
- - Find a way to simulate a scene as fast as possible i.e super-real time simulation in headless mode
-
+## Description of various functions
 
 ***
 Nikhil Bansal
