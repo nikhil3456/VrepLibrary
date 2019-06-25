@@ -106,6 +106,19 @@ class vrepobject():
         ))
         return vel
 
+    def read_proximity_sensor(self, is_first_time=False):
+
+        if is_first_time:
+            return self.env.simxReadProximitySensor(
+                self.handle,
+                simx_opmode_streaming
+            )
+        else:
+            return self.env.simxReadProximitySensor(
+                self.handle,
+                simx_opmode_buffer
+            )
+
     def read_force_sensor(self):
         state, forceVector, torqueVector = check_ret(self.env.simxReadForceSensor(
             self.handle,
