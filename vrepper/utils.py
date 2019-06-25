@@ -5,7 +5,7 @@ import os
 
 import psutil
 
-from vrepper.lib.vrepConst import simx_opmode_oneshot, simx_opmode_blocking, simx_return_ok
+from vrepper.lib.vrepConst import simx_opmode_oneshot, simx_opmode_blocking, simx_opmode_buffer, simx_return_ok
 
 list_of_instances = []
 import atexit

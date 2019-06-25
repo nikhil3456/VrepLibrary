@@ -1,5 +1,5 @@
 from vrepper.lib.vrepConst import sim_jointfloatparam_velocity, simx_opmode_buffer, simx_opmode_streaming
-from vrepper.utils import check_ret, blocking
+from vrepper.utils import check_ret, blocking, oneshot
 import numpy as np
 
 class vrepobject():
@@ -15,11 +15,11 @@ class vrepobject():
             blocking))
         return eulerAngles
 
-    def get_position(self, relative_to=None):
+    def get_position(self, relative_to=None, operation_mode="blocking"):
         position, = check_ret(self.env.simxGetObjectPosition(
             self.handle,
             -1 if relative_to is None else relative_to.handle,
-            blocking))
+            blocking if operation_mode=="blocking" else simx_opmode_buffer))
         return position
 
     def get_velocity(self):
@@ -69,14 +69,13 @@ class vrepobject():
             -np.deg2rad(angle),
             blocking))
 
-    def set_position(self, x, y, z):
+    def set_position(self, position):
         """
         Set object to specific position (should never be done with joints)
         :param pos:  tuple or list with 3 coordinates
         :return: None
         """
-        pos = (x, y, z)
-        return check_ret(self.env.simxSetObjectPosition(self.handle, -1, pos, blocking))
+        return check_ret(self.env.simxSetObjectPosition(self.handle, -1, position, blocking))
 
     def get_joint_angle(self):
         self._check_joint()
